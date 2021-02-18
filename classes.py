@@ -91,13 +91,11 @@ class MassStorageDevice:
     def get_temperature(self):
         global current_temp
         dev_info_lines = run_smartctl("-l scttemp " + self.device_id)
+        current_temp = 0  # default value
         for line2 in dev_info_lines:
             line2.split(" ", 2)
             field = line2.split(":", 1)
-            current_temp = 0  # default value
-            print(field[0].lower()) # test
             if field[0].lower() == "current temperature":
-                print("check = " +  field[1].lower()) # test
                 current_temp = field[1].strip()
             # elif  (field[0].lower() == "device model" ):
             #    dev.model = field[1].strip()
