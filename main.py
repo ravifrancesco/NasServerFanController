@@ -81,7 +81,7 @@ def fan_speed_control(list_of_devices):
     fan_pin = 12
     rpm_pin = 6
     threshold = 0
-    sleep_time = 0.2  # s
+    sleep_time = 1  # s
 
     pi = pigpio.pi()
 
@@ -113,7 +113,7 @@ def fan_speed_control(list_of_devices):
 
 
 def measure_rpm(rpm_pin, pi, sleep_time):
-    num_cicles = 10
+    num_cicles = 3
 
     start = time.time()
     for impulse_count in range(num_cicles):
