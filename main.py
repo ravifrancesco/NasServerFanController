@@ -5,8 +5,6 @@ import psutil
 import time
 import gpiozero
 
-import random  # stress test
-
 import classes
 
 
@@ -75,6 +73,7 @@ def compute_cpu_fan_speed(cpu):
 
 
 def fan_speed_control(list_of_devices):
+
     cpu = gpiozero.CPUTemperature()
 
     print("TEST THREAD")  # test
@@ -82,7 +81,7 @@ def fan_speed_control(list_of_devices):
     fan_pin = 12
     rpm_pin = 6
     threshold = 0
-    sleep_time = 1  # s
+    sleep_time = 0.2  # s
 
     pi = pigpio.pi()
 
@@ -114,7 +113,7 @@ def fan_speed_control(list_of_devices):
 
 
 def measure_rpm(rpm_pin, pi, sleep_time):
-    num_cicles = 3
+    num_cicles = 10
 
     start = time.time()
     for impulse_count in range(num_cicles):
@@ -125,45 +124,6 @@ def measure_rpm(rpm_pin, pi, sleep_time):
     frequency = num_cicles / duration  # in Hz
     return int((frequency * 60) / 2)
 
-
-# stress test
-def stress_test():
-    result = 0
-    fast = 0
-
-    while result == fast:
-        if __name__ == '__main__':
-            n = (random.randint(2, 11))
-            a = list(random.randint(0, 99999) for r in range(n))
-            assert (len(a) == n)
-
-            print(fast, result, "OK")
-    else:
-        print("Wrong Answer")
-
-
-def max_pairwise_product(n, a):
-    global result
-    for i in range(0, n):
-        for j in range(i + 1, n):
-            if a[i] * a[j] > result:
-                result = a[i] * a[j]
-    return result
-
-
-def max_pairwise_product_fast(n, a):
-    global fast
-    max_index1 = -1
-    for i in range(n):
-        if max_index1 == -1 or a[i] > a[max_index1]:
-            max_index1 = i
-
-    max_index2 = -1
-    for i in range(n):
-        if i != max_index1 and (max_index2 == -1 or a[i] > a[max_index2]):
-            max_index2 = i
-    fast = a[max_index1] * a[max_index2]
-    return fast
 
 def main():
     device_list = get_device_ids()
@@ -188,5 +148,3 @@ def main():
 
 # program
 main()
-
-stress_test()
