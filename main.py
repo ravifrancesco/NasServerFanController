@@ -4,6 +4,7 @@ import pigpio
 import psutil
 import time
 import gpiozero
+import RPi.GPIO
 
 import classes
 
