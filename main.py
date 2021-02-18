@@ -79,9 +79,11 @@ def fan_speed_control(list_of_devices):
     threshold = 10
     sleep_time = 0.2  # s
 
-    pigpio.pi.set_PWM_range(fan_pin, 100)
-    pigpio.pi.set_PWM_frequency(pwm_frequency)
-    pigpio.pi.set_PWM_dutycycle(fan_pin, 0)
+    pi = pigpio.pi()
+
+    pigpio.pi.set_PWM_range(pi, fan_pin, 100)
+    pigpio.pi.set_PWM_frequency(pi, fan_pin, pwm_frequency)
+    pigpio.pi.set_PWM_dutycycle(pi, fan_pin, 0)
 
     prec_duty_cicle = 0
 
@@ -98,7 +100,7 @@ def fan_speed_control(list_of_devices):
             "Current RPM: " + str(current_rpm) + " - Current Duty Cicle: " + str(
                 prec_duty_cicle) + " - New Duty Cicle: " + str(new_duty_cicle))
         if new_duty_cicle - prec_duty_cicle > threshold:
-            pigpio.pi.set_PWM_dutycycle(fan_pin, new_duty_cicle)
+            pigpio.pi.set_PWM_dutycycle(pi, fan_pin, new_duty_cicle)
             prec_duty_cicle = new_duty_cicle
         time.sleep(sleep_time)
 
@@ -132,8 +134,9 @@ def main():
     list_of_devices = remove_disabled_unsupported(list_of_devices)
 
     #_thread.start_new_thread(fan_speed_control, (list_of_devices,))
-    t = Thread(target=fan_speed_control, args = (list_of_devices, ))
+    t = Thread(target=fan_speed_control, args=(list_of_devices, ))
     t.start()
+
 
 # program
 main()
