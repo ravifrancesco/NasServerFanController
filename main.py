@@ -56,7 +56,7 @@ def compute_device_fan_speed(devices):
 
 
 def compute_cpu_fan_speed(cpu):
-    cpu_temp = cpu.temperature()
+    cpu_temp = float(cpu.temperature())
     print("CPU temp: " + str(cpu_temp))  # test
     cpu_usage = psutil.cpu_percent()
 
@@ -73,6 +73,7 @@ def compute_cpu_fan_speed(cpu):
 
 
 def fan_speed_control(list_of_devices):
+
     cpu = gpiozero.CPUTemperature()
 
     print("TEST THREAD")  # test
