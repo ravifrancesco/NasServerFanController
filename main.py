@@ -56,7 +56,7 @@ def compute_device_fan_speed(devices):
 
 
 def compute_cpu_fan_speed(cpu):
-    cpu_temp = float(cpu.temperature())
+    cpu_temp = cpu.temperature
     print("CPU temp: " + str(cpu_temp))  # test
     cpu_usage = psutil.cpu_percent()
 
