@@ -56,7 +56,8 @@ def compute_device_fan_speed(devices):
 
 
 def compute_cpu_fan_speed():
-    cpu_temp = gpiozero.CPUTemperature()
+    cpu_temp = int(gpiozero.CPUTemperature())
+    print("CPU temp: " + str(cpu_temp)) # test
     cpu_usage = psutil.cpu_percent()
 
     if cpu_temp <= 30:
@@ -73,7 +74,7 @@ def compute_cpu_fan_speed():
 
 def fan_speed_control(list_of_devices):
 
-    print("TEST THREAD")
+    print("TEST THREAD") # test
     pwm_frequency = 25000
     fan_pin = 12
     rpm_pin = 6
