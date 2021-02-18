@@ -103,10 +103,12 @@ def fan_speed_control(list_of_devices):
         print(
             "Current RPM: " + str(current_rpm) + " - Current Duty Cicle: " + str(
                 prec_duty_cicle) + " - New Duty Cicle: " + str(new_duty_cicle))
+
         if new_duty_cicle - prec_duty_cicle > threshold:
             print("TEST THRESHOLD")
             pigpio.pi.set_PWM_dutycycle(pi, fan_pin, new_duty_cicle)
             prec_duty_cicle = new_duty_cicle
+
         time.sleep(sleep_time)
 
 
@@ -116,6 +118,7 @@ def measure_rpm(rpm_pin, pi, sleep_time):
     start = time.time()
     for impulse_count in range(num_cicles):
         pigpio.pi.wait_for_edge(pi, rpm_pin, pigpio.RISING_EDGE, sleep_time)
+        print("TEST edge")
 
     duration = time.time() - start  # seconds to run for loop
     frequency = num_cicles / duration  # in Hz
