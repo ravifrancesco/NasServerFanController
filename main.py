@@ -71,6 +71,8 @@ def compute_cpu_fan_speed():
 
 
 def fan_speed_control(list_of_devices):
+
+    print("TEST THREAD")
     pwm_frequency = 25000
     fan_pin = 12
     rpm_pin = 6
