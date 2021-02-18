@@ -55,9 +55,9 @@ def compute_device_fan_speed(devices):
         return 100
 
 
-def compute_cpu_fan_speed():
-    cpu_temp = int(gpiozero.CPUTemperature())
-    print("CPU temp: " + str(cpu_temp)) # test
+def compute_cpu_fan_speed(cpu):
+    cpu_temp = cpu.temperature()
+    print("CPU temp: " + str(cpu_temp))  # test
     cpu_usage = psutil.cpu_percent()
 
     if cpu_temp <= 30:
@@ -73,8 +73,9 @@ def compute_cpu_fan_speed():
 
 
 def fan_speed_control(list_of_devices):
+    cpu = gpiozero.CPUTemperature()
 
-    print("TEST THREAD") # test
+    print("TEST THREAD")  # test
     pwm_frequency = 25000
     fan_pin = 12
     rpm_pin = 6
@@ -92,7 +93,7 @@ def fan_speed_control(list_of_devices):
     # main cicle
     while True:
         current_rpm = measure_rpm(rpm_pin, pi, sleep_time)
-        cpu_fan_speed = compute_cpu_fan_speed()
+        cpu_fan_speed = compute_cpu_fan_speed(cpu)
         if len(list_of_devices) > 0:
             device_fan_speed = compute_device_fan_speed(list_of_devices)
             new_duty_cicle = max(cpu_fan_speed, device_fan_speed)
@@ -135,8 +136,8 @@ def main():
     list_of_devices = remove_dupes(list_of_devices)
     list_of_devices = remove_disabled_unsupported(list_of_devices)
 
-    #_thread.start_new_thread(fan_speed_control, (list_of_devices,))
-    t = Thread(target=fan_speed_control, args=(list_of_devices, ))
+    # _thread.start_new_thread(fan_speed_control, (list_of_devices,))
+    t = Thread(target=fan_speed_control, args=(list_of_devices,))
     t.start()
 
 
