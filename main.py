@@ -3,6 +3,7 @@ from threading import Thread
 import pigpio
 import psutil
 import time
+import gpiozero
 
 import classes
 
@@ -55,7 +56,7 @@ def compute_device_fan_speed(devices):
 
 
 def compute_cpu_fan_speed():
-    cpu_temp = psutil.CPUTemperature()
+    cpu_temp = gpiozero.CPUTemperature()
     cpu_usage = psutil.cpu_percent()
 
     if cpu_temp <= 30:
