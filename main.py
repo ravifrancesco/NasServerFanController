@@ -174,8 +174,14 @@ def stress_test():
     print('Number of primes found ' + str(noPrimes))
     # print(primes)
 
+def stress():
+    number_of_threads = 10
+    for i in range(number_of_threads):
+        t = Thread(target=stress_test(), args=())
+        t.start()
+
 # program
 main()
 
 #stress test
-#stress_test()
+stress()
