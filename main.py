@@ -104,6 +104,7 @@ def fan_speed_control(list_of_devices):
             "Current RPM: " + str(current_rpm) + " - Current Duty Cicle: " + str(
                 prec_duty_cicle) + " - New Duty Cicle: " + str(new_duty_cicle))
         if new_duty_cicle - prec_duty_cicle > threshold:
+            print("TEST THRESHOLD")
             pigpio.pi.set_PWM_dutycycle(pi, fan_pin, new_duty_cicle)
             prec_duty_cicle = new_duty_cicle
         time.sleep(sleep_time)
