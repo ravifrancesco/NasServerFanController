@@ -89,7 +89,7 @@ def fan_speed_control(list_of_devices):
 
     # main cicle
     while True:
-        current_rpm = measure_rpm(rpm_pin)
+        current_rpm = measure_rpm(rpm_pin, pi, sleep_time)
         cpu_fan_speed = compute_cpu_fan_speed()
         if len(list_of_devices) > 0:
             device_fan_speed = compute_device_fan_speed(list_of_devices)
@@ -105,12 +105,12 @@ def fan_speed_control(list_of_devices):
         time.sleep(sleep_time)
 
 
-def measure_rpm(rpm_pin):
+def measure_rpm(rpm_pin, pi, sleep_time):
     num_cicles = 10
 
     start = time.time()
     for impulse_count in range(num_cicles):
-        pigpio.pi.wait_for_edge(rpm_pin, pigpio.RISING_EDGE)
+        pigpio.pi.wait_for_edge(pi, rpm_pin, pigpio.RISING_EDGE, sleep_time)
 
     duration = time.time() - start  # seconds to run for loop
     frequency = num_cicles / duration  # in Hz
