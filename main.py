@@ -39,10 +39,6 @@ def remove_disabled_unsupported(devices):
 
 def compute_device_fan_speed(devices):
     max_temp = 0
-    # test
-    if not devices:
-        print("NOPE")
-    # end test
     for device in devices:
         current_temp = device.get_temperature()
         print("Model: " + str(device.dev.model) + " TEMP: " + str(current_temp))
@@ -99,6 +95,7 @@ def fan_speed_control(list_of_devices):
         current_rpm = measure_rpm(rpm_pin, pi, sleep_time)
         cpu_fan_speed = compute_cpu_fan_speed(cpu)
         if len(list_of_devices) > 0:
+            print("YEP") #test
             device_fan_speed = compute_device_fan_speed(list_of_devices)
             new_duty_cicle = max(cpu_fan_speed, device_fan_speed)
         else:
