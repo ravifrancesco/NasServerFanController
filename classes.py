@@ -101,4 +101,4 @@ class MassStorageDevice:
             #    dev.model = field[1].strip()
             # elif  (field[0].lower() == "serial number" ):
             #    dev.serial = field[1].strip()
-        return int(current_temp)
+        return int(current_temp.split()[0])
