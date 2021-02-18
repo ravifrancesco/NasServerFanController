@@ -134,7 +134,7 @@ def main():
 
     for str_device in device_list:
         device = classes.MassStorageDevice(str_device)
-        print("DEVICE FOUND: " + str_device + " - " + device.dev)
+        print("DEVICE FOUND: " + str_device + " - " + str(device.dev))
         list_of_devices.append(device)
 
     list_of_devices = remove_dupes(list_of_devices)
