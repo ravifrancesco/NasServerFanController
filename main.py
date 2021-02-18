@@ -8,6 +8,7 @@ import RPi.GPIO
 
 import classes
 
+
 def get_device_ids():
     lines = classes.run_smartctl("--scan")
     device_list = []
@@ -174,14 +175,16 @@ def stress_test():
     print('Number of primes found ' + str(noPrimes))
     # print(primes)
 
+
 def stress():
     number_of_threads = 10
     for i in range(number_of_threads):
         t = Thread(target=stress_test(), args=())
         t.start()
 
+
 # program
 main()
 
-#stress test
-stress()
+# stress test
+# stress()
