@@ -7,6 +7,8 @@ import gpiozero
 
 import classes
 
+import pystress
+
 
 def get_device_ids():
     lines = classes.run_smartctl("--scan")
@@ -81,7 +83,7 @@ def fan_speed_control(list_of_devices):
     fan_pin = 12
     rpm_pin = 6
     threshold = 0
-    sleep_time = 0.2  # s
+    sleep_time = 1  # s
 
     pi = pigpio.pi()
 
@@ -148,3 +150,5 @@ def main():
 
 # program
 main()
+
+pystress.fib(9999999) #stress test

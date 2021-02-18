@@ -2,3 +2,4 @@ psutil~=5.8.0
 setuptools~=49.2.1
 pigpio~=1.78
 gpiozero~=1.5.1
+pystress~=0.2.1
