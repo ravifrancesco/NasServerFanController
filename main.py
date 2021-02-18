@@ -73,7 +73,6 @@ def compute_cpu_fan_speed(cpu):
 
 
 def fan_speed_control(list_of_devices):
-
     cpu = gpiozero.CPUTemperature()
 
     print("TEST THREAD")  # test
