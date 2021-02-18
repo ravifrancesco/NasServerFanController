@@ -94,7 +94,8 @@ class MassStorageDevice:
         for line2 in dev_info_lines:
             line2.split(" ", 2)
             field = line2.split(":", 1)
-            current_temp = 20  # default value
+            current_temp = -1  # default value
+            print(field[0].lower()) # test
             if field[0].lower() == "current temperature":
                 current_temp = field[1].strip()
             # elif  (field[0].lower() == "device model" ):
