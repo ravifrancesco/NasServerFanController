@@ -76,12 +76,11 @@ def compute_cpu_fan_speed(cpu):
 def fan_speed_control(list_of_devices):
     cpu = gpiozero.CPUTemperature()
 
-    print("TEST THREAD")  # test
     pwm_frequency = 25000
     fan_pin = 12
     rpm_pin = 6
-    threshold = 0
-    sleep_time = 1  # s
+    threshold = 10
+    sleep_time = 5  # s
 
     pi = pigpio.pi()
 
@@ -96,7 +95,6 @@ def fan_speed_control(list_of_devices):
         current_rpm = measure_rpm(rpm_pin, pi, sleep_time)
         cpu_fan_speed = compute_cpu_fan_speed(cpu)
         if len(list_of_devices) > 0:
-            print("YEP") #test
             device_fan_speed = compute_device_fan_speed(list_of_devices)
             new_duty_cicle = max(cpu_fan_speed, device_fan_speed)
         else:
@@ -106,7 +104,6 @@ def fan_speed_control(list_of_devices):
                 prec_duty_cicle) + " - New Duty Cicle: " + str(new_duty_cicle))
 
         if abs(new_duty_cicle - prec_duty_cicle) > threshold:
-            print("TEST THRESHOLD")
             pigpio.pi.set_PWM_dutycycle(pi, fan_pin, new_duty_cicle)
             prec_duty_cicle = new_duty_cicle
 
@@ -119,7 +116,6 @@ def measure_rpm(rpm_pin, pi, sleep_time):
     start = time.time()
     for impulse_count in range(num_cicles):
         pigpio.pi.wait_for_edge(pi, rpm_pin, pigpio.RISING_EDGE, sleep_time)
-        print("TEST edge")
 
     duration = time.time() - start  # seconds to run for loop
     frequency = num_cicles / duration  # in Hz
