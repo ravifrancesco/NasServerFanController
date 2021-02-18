@@ -80,7 +80,7 @@ def fan_speed_control(list_of_devices):
     pwm_frequency = 25000
     fan_pin = 12
     rpm_pin = 6
-    threshold = 10
+    threshold = 0
     sleep_time = 0.2  # s
 
     pi = pigpio.pi()
