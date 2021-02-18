@@ -182,4 +182,4 @@ def stress_test():
 main()
 
 #stress test
-#stress_test()
+stress_test()
