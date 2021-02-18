@@ -39,6 +39,10 @@ def remove_disabled_unsupported(devices):
 
 def compute_device_fan_speed(devices):
     max_temp = 0
+    # test
+    if not devices:
+        print("NOPE")
+    # end test
     for device in devices:
         current_temp = device.get_temperature()
         print("Model: " + str(device.dev.model) + " TEMP: " + str(current_temp))
