@@ -114,7 +114,7 @@ def fan_speed_control(list_of_devices):
 
 
 def measure_rpm(rpm_pin, pi, sleep_time):
-    num_cicles = 3
+    num_cicles = 10
 
     start = time.time()
     for impulse_count in range(num_cicles):
