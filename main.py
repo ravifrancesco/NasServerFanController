@@ -1,4 +1,4 @@
-import _thread
+from threading import Thread
 
 import pigpio
 import psutil
@@ -88,7 +88,12 @@ def fan_speed_control(list_of_devices):
     # main cicle
     while True:
         current_rpm = measure_rpm(rpm_pin)
-        new_duty_cicle = max(compute_cpu_fan_speed(), compute_device_fan_speed(list_of_devices))
+        cpu_fan_speed = compute_cpu_fan_speed()
+        if len(list_of_devices) > 0:
+            device_fan_speed = compute_device_fan_speed(list_of_devices)
+            new_duty_cicle = max(cpu_fan_speed, device_fan_speed)
+        else:
+            new_duty_cicle = cpu_fan_speed
         print(
             "Current RPM: " + str(current_rpm) + " - Current Duty Cicle: " + str(
                 prec_duty_cicle) + " - New Duty Cicle: " + str(new_duty_cicle))
@@ -126,7 +131,9 @@ def main():
     list_of_devices = remove_dupes(list_of_devices)
     list_of_devices = remove_disabled_unsupported(list_of_devices)
 
-    _thread.start_new_thread(fan_speed_control, (list_of_devices,))
+    #_thread.start_new_thread(fan_speed_control, (list_of_devices,))
+    t = Thread(target=fan_speed_control, args = (list_of_devices, ))
+    t.start()
 
 # program
 main()
